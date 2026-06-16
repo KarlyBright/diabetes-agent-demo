@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic>=2,<3
+python-dotenv
+croniter

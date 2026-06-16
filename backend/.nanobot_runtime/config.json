@@ -1,0 +1,37 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "D:\\OpenProject\\diabetes-agent-demo\\diabetes-agent-demo\\backend\\.nanobot_runtime\\workspace",
+      "model": "gpt-5.4-mini",
+      "provider": "openai",
+      "temperature": 0.1,
+      "maxToolIterations": 8,
+      "maxToolResultChars": 4000,
+      "contextWindowTokens": 16000
+    }
+  },
+  "providers": {
+    "openai": {
+      "apiKey": "sk-a0709b8c5b9740bb66ece3909b617c4b46f0aeb6821cbff52b010158709b73f9",
+      "apiBase": "https://llmapi.02013839.xyz/v1"
+    }
+  },
+  "tools": {
+    "restrictToWorkspace": true,
+    "exec": {
+      "enable": false,
+      "timeout": 5,
+      "pathAppend": ""
+    },
+    "web": {
+      "proxy": null,
+      "search": {
+        "provider": "brave",
+        "apiKey": "",
+        "baseUrl": "",
+        "maxResults": 0
+      }
+    },
+    "mcpServers": {}
+  }
+}

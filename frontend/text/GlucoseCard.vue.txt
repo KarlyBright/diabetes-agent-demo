@@ -1,0 +1,209 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import { getRecentGlucose, addGlucoseRecord } from '../api'
+import { eventBus } from '../utils/eventBus'
+
+const records = ref([])
+const showForm = ref(false)
+const formData = ref({
+  user_id: 1,
+  value: '',
+  measure_time: '',
+  measure_type: 'fasting',
+  source: 'manual'
+})
+
+const loadData = async () => {
+  const res = await getRecentGlucose()
+  records.value = res.data || []
+}
+
+const handleSubmit = async () => {
+  if (!formData.value.value || !formData.value.measure_time) return
+
+  await addGlucoseRecord({
+    ...formData.value,
+    measure_time: formData.value.measure_time
+  })
+
+  showForm.value = false
+  formData.value = {
+    user_id: 1,
+    value: '',
+    measure_time: '',
+    measure_type: 'fasting',
+    source: 'manual'
+  }
+
+  await loadData()
+  eventBus.value.emit('glucose:added')
+}
+
+const getTypeLabel = (type) => {
+  const map = { fasting: '空腹', post_meal: '餐后', before_sleep: '睡前' }
+  return map[type] || type
+}
+
+onMounted(loadData)
+
+const handleGlucoseAdded = () => loadData()
+
+eventBus.value.on('glucose:added', handleGlucoseAdded)
+
+onUnmounted(() => {
+  eventBus.value.off('glucose:added', handleGlucoseAdded)
+})
+
+defineExpose({ loadData })
+</script>
+
+<template>
+  <div class="glucose-card">
+    <div class="card-header">
+      <span class="icon">📊</span>
+      <span class="title">血糖记录</span>
+      <button class="add-btn" @click="showForm = !showForm">
+        {{ showForm ? '取消' : '+ 录入' }}
+      </button>
+    </div>
+
+    <div v-if="showForm" class="input-form">
+      <div class="form-row">
+        <input v-model="formData.value" type="number" step="0.1" placeholder="血糖值 (mmol/L)" />
+        <select v-model="formData.measure_type">
+          <option value="fasting">空腹</option>
+          <option value="post_meal">餐后</option>
+          <option value="before_sleep">睡前</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <input v-model="formData.measure_time" type="datetime-local" />
+        <button class="submit-btn" @click="handleSubmit">保存</button>
+      </div>
+    </div>
+
+    <div class="records-list">
+      <div v-if="records.length === 0" class="empty">暂无记录</div>
+      <div v-for="r in records" :key="r.id" class="record-item">
+        <span class="value">{{ r.value }}</span>
+        <span class="unit">mmol/L</span>
+        <span class="type">{{ getTypeLabel(r.measure_type) }}</span>
+        <span class="time">{{ r.measure_time?.slice(0, 16) }}</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.glucose-card {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1e293b;
+  flex: 1;
+}
+
+.add-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #2563eb;
+}
+
+.input-form {
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.form-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.form-row input, .form-row select {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.submit-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.records-list {
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.empty {
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+  padding: 12px;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 0;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 12px;
+}
+
+.record-item .value {
+  font-weight: 600;
+  font-size: 15px;
+  color: #ef4444;
+}
+
+.record-item .unit {
+  color: #64748b;
+}
+
+.record-item .type {
+  background: #eff6ff;
+  color: #3b82f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.record-item .time {
+  color: #94a3b8;
+  margin-left: auto;
+  font-size: 11px;
+}
+</style>

@@ -1,0 +1,207 @@
+<script setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { getMedicationPlans, getMedicationTaken, recordMedicationTaken } from '../api'
+import { eventBus } from '../utils/eventBus'
+
+const plans = ref([])
+const takenRecords = ref([])
+
+const loadData = async () => {
+  const [plansRes, takenRes] = await Promise.all([
+    getMedicationPlans(),
+    getMedicationTaken()
+  ])
+  plans.value = plansRes.data || []
+  takenRecords.value = takenRes.data || []
+}
+
+const today = computed(() => {
+  return new Date().toISOString().slice(0, 10)
+})
+
+const getTodayStatus = (planId) => {
+  const record = takenRecords.value.find(r => 
+    r.plan_id === planId && r.created_at?.slice(0, 10) === today.value
+  )
+  return record?.status || 'pending'
+}
+
+const handleTake = async (plan) => {
+  await recordMedicationTaken({
+    user_id: 1,
+    plan_id: plan.plan_id,
+    status: 'taken'
+  })
+  loadData()
+  eventBus.value.emit('medication:taken')
+}
+
+const formatTime = (time) => {
+  return time ? time.slice(0, 5) : ''
+}
+
+onMounted(loadData)
+
+const handleMedicationConfirmed = () => loadData()
+const handleMedicationTaken = () => loadData()
+
+eventBus.value.on('medication:confirmed', handleMedicationConfirmed)
+eventBus.value.on('medication:taken', handleMedicationTaken)
+
+onUnmounted(() => {
+  eventBus.value.off('medication:confirmed', handleMedicationConfirmed)
+  eventBus.value.off('medication:taken', handleMedicationTaken)
+})
+
+defineExpose({ loadData })
+</script>
+
+<template>
+  <div class="medication-card">
+    <div class="card-header">
+      <span class="icon">💊</span>
+      <span class="title">用药提醒</span>
+    </div>
+
+    <div v-if="plans.length === 0" class="empty">
+      暂无用药计划，请在对话中设置
+    </div>
+
+    <div v-else class="plans-list">
+      <div v-for="plan in plans" :key="plan.plan_id" class="plan-item">
+        <div class="plan-info">
+          <span class="drug-name">{{ plan.drug_name }}</span>
+          <span class="dosage">{{ plan.dosage }}</span>
+        </div>
+        <div class="plan-time">
+          <span class="time-text">{{ plan.time_text }}</span>
+          <span class="remind-time">{{ formatTime(plan.remind_time) }}</span>
+        </div>
+        <div class="plan-action">
+          <span :class="['status', getTodayStatus(plan.plan_id)]">
+            {{ getTodayStatus(plan.plan_id) === 'taken' ? '✓ 已服' : '待服药' }}
+          </span>
+          <button 
+            v-if="getTodayStatus(plan.plan_id) !== 'taken'" 
+            class="take-btn"
+            @click="handleTake(plan)"
+          >
+            服药
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.medication-card {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.empty {
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+  padding: 12px;
+}
+
+.plans-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plan-item {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.plan-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.drug-name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 13px;
+}
+
+.dosage {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.plan-time {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.time-text {
+  background: #eff6ff;
+  color: #3b82f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.plan-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.status.pending {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status.taken {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.take-btn {
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.take-btn:hover {
+  background: #16a34a;
+}
+</style>

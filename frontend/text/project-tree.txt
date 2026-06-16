@@ -1,0 +1,67 @@
+diabetes-agent-demo/
+│
+├── backend/
+│   ├── app/
+│   │   ├── __init__.py
+│   │   ├── main.py               # FastAPI 主入口
+│   │   ├── db/
+│   │   │   ├── __init__.py
+│   │   │   ├── database.py       # SQLAlchemy 数据库配置
+│   │   │   └── init_db.py        # 数据库初始化
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   ├── glucose_model.py  # 血糖记录模型
+│   │   │   └── medication_model.py # 用药计划模型
+│   │   └── services/
+│   │       ├── __init__.py
+│   │       ├── meal_analysis_service.py    # 饮食分析服务
+│   │       ├── advice_service.py            # 今日建议服务
+│   │       ├── medication_service.py        # 用药解析服务
+│   │       └── adherence_service.py         # 依从性分析服务
+│   └── __init__.py
+│
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   │   ├── chat.js          # 聊天 API (已对接 OpenClaw)
+│   │   │   └── index.js         # 所有 API 接口
+│   │   ├── components/
+│   │   │   ├── ChatPanel.vue    # 智能聊天面板
+│   │   │   ├── GlucoseCard.vue  # 血糖记录卡片
+│   │   │   ├── MedicationCard.vue   # 用药提醒卡片
+│   │   │   ├── AdherenceCard.vue    # 今日待办卡片
+│   │   │   ├── AdviceCard.vue       # 今日建议卡片
+│   │   │   └── MealInput.vue        # 饮食记录卡片
+│   │   ├── views/
+│   │   │   └── Dashboard.vue    # 主页面
+│   │   ├── utils/
+│   │   │   └── eventBus.js     # 事件总线
+│   │   ├── App.vue
+│   │   ├── main.js
+│   │   └── style.css
+│   ├── index.html
+│   ├── package.json
+│   └── text/                   # 文本备份文件夹
+│       ├── project-tree.txt    # 本文件
+│       ├── main.py.txt
+│       ├── database.py.txt
+│       ├── init_db.py.txt
+│       ├── glucose_model.txt
+│       ├── medication_model.txt
+│       ├── meal_analysis_service.txt
+│       ├── advice_service.txt
+│       ├── medication_service.txt
+│       ├── adherence_service.txt
+│       ├── chat.js.txt
+│       ├── index.js.txt
+│       ├── eventBus.js.txt
+│       ├── ChatPanel.vue.txt
+│       ├── Dashboard.vue.txt
+│       ├── GlucoseCard.vue.txt
+│       ├── MedicationCard.vue.txt
+│       ├── AdherenceCard.vue.txt
+│       ├── AdviceCard.vue.txt
+│       ├── MealInput.vue.txt
+│       └── App.vue.txt
+│
+└── README.md

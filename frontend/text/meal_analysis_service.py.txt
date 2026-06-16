@@ -1,0 +1,73 @@
+def analyze_meal_logic(meal_text: str):
+    text = meal_text.lower()
+
+    high_risk_keywords = ["可乐", "奶茶", "蛋糕", "炸鸡", "汉堡", "薯条", "甜点"]
+    medium_risk_keywords = ["米饭", "面条", "馒头", "粥", "土豆"]
+    low_risk_keywords = ["黄瓜", "西兰花", "生菜", "番茄", "青菜"]
+
+    detected_foods = []
+    score = 0
+    reasons = []
+
+    for word in high_risk_keywords:
+        if word in text:
+            detected_foods.append({
+                "name": word,
+                "category": "high_risk",
+                "score": 3
+            })
+            score += 3
+            reasons.append(f"{word} 属于高糖或高脂食物")
+
+    for word in medium_risk_keywords:
+        if word in text:
+            detected_foods.append({
+                "name": word,
+                "category": "medium_risk",
+                "score": 2
+            })
+            score += 2
+            reasons.append(f"{word} 属于高碳水主食")
+
+    for word in low_risk_keywords:
+        if word in text:
+            detected_foods.append({
+                "name": word,
+                "category": "protective",
+                "score": -1
+            })
+            score -= 1
+            reasons.append(f"{word} 属于相对健康的低糖蔬菜")
+
+    if score >= 5:
+        risk_level = "high"
+    elif score >= 2:
+        risk_level = "medium"
+    else:
+        risk_level = "low"
+
+    if risk_level == "high":
+        suggestion = [
+            "建议减少含糖饮料或油炸食品",
+            "主食适当减量",
+            "增加蔬菜比例"
+        ]
+    elif risk_level == "medium":
+        suggestion = [
+            "注意控制主食总量",
+            "餐后可适当活动",
+            "关注餐后血糖变化"
+        ]
+    else:
+        suggestion = [
+            "这顿饭整体较均衡，可以继续保持"
+        ]
+
+    return {
+        "risk_level": risk_level,
+        "score": score,
+        "detected_foods": detected_foods,
+        "reason": reasons,
+        "suggestion": suggestion,
+        "summary": f"本次饮食风险等级为 {risk_level}，综合评分为 {score}。"
+    }

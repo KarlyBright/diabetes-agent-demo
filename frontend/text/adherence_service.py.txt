@@ -1,0 +1,87 @@
+def analyze_adherence_logic(user_id, glucose_records, meal_analysis_records, medication_plans, medication_taken_records):
+    glucose_score = 0
+    meal_score = 0
+    medication_score = 0
+
+    # 1. 血糖依从性
+    user_glucose = [r for r in glucose_records if r["user_id"] == user_id]
+    if len(user_glucose) > 0:
+        glucose_score = 40
+
+    # 2. 饮食依从性
+    user_meal_analysis = [r for r in meal_analysis_records if r["user_id"] == user_id]
+    if len(user_meal_analysis) > 0:
+        meal_score = 30
+
+    # 3. 药物依从性
+    user_medication_plans = [p for p in medication_plans if p["user_id"] == user_id and p["status"] == "active"]
+    user_medication_taken = [r for r in medication_taken_records if r["user_id"] == user_id]
+
+    if len(user_medication_plans) == 0:
+        medication_score = 30
+    else:
+        taken_plan_ids = {r["plan_id"] for r in user_medication_taken if r["status"] == "taken"}
+        active_plan_ids = {p["plan_id"] for p in user_medication_plans}
+
+        if active_plan_ids.issubset(taken_plan_ids):
+            medication_score = 30
+        elif len(taken_plan_ids) > 0:
+            medication_score = 15
+        else:
+            medication_score = 0
+
+    total_score = glucose_score + meal_score + medication_score
+
+    if total_score >= 80:
+        adherence_level = "high"
+    elif total_score >= 50:
+        adherence_level = "medium"
+    else:
+        adherence_level = "low"
+
+    details = {
+        "glucose_record_score": glucose_score,
+        "meal_record_score": meal_score,
+        "medication_score": medication_score
+    }
+
+    summary_parts = []
+    suggestions = []
+
+    if glucose_score == 40:
+        summary_parts.append("已完成血糖记录")
+    else:
+        summary_parts.append("尚未完成血糖记录")
+        suggestions.append("建议及时记录今日血糖，便于后续分析。")
+
+    if meal_score == 30:
+        summary_parts.append("已完成饮食记录/分析")
+    else:
+        summary_parts.append("尚未完成饮食记录/分析")
+        suggestions.append("建议补充今日饮食信息，帮助系统生成更准确建议。")
+
+    if len(user_medication_plans) == 0:
+        summary_parts.append("当前无活动中的药物计划")
+    else:
+        if medication_score == 30:
+            summary_parts.append("已完成药物执行记录")
+        elif medication_score == 15:
+            summary_parts.append("部分完成药物执行记录")
+            suggestions.append("建议尽快补全未完成的服药记录。")
+        else:
+            summary_parts.append("尚未完成药物执行记录")
+            suggestions.append("建议按时服药并记录执行状态。")
+
+    summary = "，".join(summary_parts) + f"。整体依从性为 {adherence_level}。"
+
+    if not suggestions:
+        suggestions.append("今天的健康管理执行情况较好，请继续保持。")
+
+    return {
+        "user_id": user_id,
+        "adherence_score": total_score,
+        "adherence_level": adherence_level,
+        "details": details,
+        "summary": summary,
+        "suggestions": suggestions
+    }

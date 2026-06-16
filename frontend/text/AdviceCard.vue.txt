@@ -1,0 +1,201 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import { getDailyAdvice } from '../api'
+import { eventBus } from '../utils/eventBus'
+
+const data = ref(null)
+const loading = ref(true)
+
+const loadData = async () => {
+  loading.value = true
+  const res = await getDailyAdvice()
+  data.value = res.data
+  loading.value = false
+}
+
+const getRiskClass = (level) => {
+  return level || 'low'
+}
+
+onMounted(loadData)
+
+const handleRefresh = () => loadData()
+
+eventBus.value.on('glucose:added', handleRefresh)
+eventBus.value.on('meal:analyzed', handleRefresh)
+eventBus.value.on('medication:confirmed', handleRefresh)
+eventBus.value.on('medication:taken', handleRefresh)
+
+onUnmounted(() => {
+  eventBus.value.off('glucose:added', handleRefresh)
+  eventBus.value.off('meal:analyzed', handleRefresh)
+  eventBus.value.off('medication:confirmed', handleRefresh)
+  eventBus.value.off('medication:taken', handleRefresh)
+})
+
+defineExpose({ loadData })
+</script>
+
+<template>
+  <div class="advice-card">
+    <div class="card-header">
+      <span class="icon">📝</span>
+      <span class="title">今日建议</span>
+      <button class="refresh-btn" @click="loadData" :disabled="loading">
+        {{ loading ? '加载中...' : '刷新' }}
+      </button>
+    </div>
+
+    <div v-if="loading" class="loading">加载中...</div>
+    <div v-else-if="!data" class="empty">暂无建议</div>
+    <div v-else class="content">
+      <div class="profile">{{ data.profile_summary }}</div>
+      
+      <div class="section">
+        <div class="section-title">血糖</div>
+        <div class="section-content">{{ data.glucose_summary }}</div>
+      </div>
+      
+      <div class="section">
+        <div class="section-title">饮食</div>
+        <div class="section-content">{{ data.meal_summary }}</div>
+      </div>
+
+      <div :class="['risk-badge', getRiskClass(data.risk_level)]">
+        风险等级：{{ data.risk_level === 'high' ? '高' : data.risk_level === 'medium' ? '中' : '低' }}
+      </div>
+
+      <div v-if="data.daily_advice?.length" class="advice-list">
+        <div class="advice-title">建议</div>
+        <div v-for="(item, idx) in data.daily_advice" :key="idx" class="advice-item">
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.advice-card {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1e293b;
+  flex: 1;
+}
+
+.refresh-btn {
+  background: #64748b;
+  color: #fff;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.loading, .empty {
+  color: #94a3b8;
+  font-size: 12px;
+  text-align: center;
+  padding: 12px;
+}
+
+.content {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.profile {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.section {
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 3px;
+}
+
+.section-content {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.risk-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+  margin: 8px 0;
+}
+
+.risk-badge.high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.risk-badge.medium {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.risk-badge.low {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.advice-list {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.advice-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.advice-item {
+  font-size: 12px;
+  color: #1e293b;
+  line-height: 1.5;
+  padding: 4px 0;
+  padding-left: 10px;
+  position: relative;
+}
+
+.advice-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+}
+</style>

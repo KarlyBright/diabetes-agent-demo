@@ -1,0 +1,239 @@
+<script setup>
+import { ref, onUnmounted } from 'vue'
+import { analyzeMeal } from '../api'
+import { eventBus } from '../utils/eventBus'
+
+const mealText = ref('')
+const result = ref(null)
+const loading = ref(false)
+const showResult = ref(false)
+
+const loadData = async () => {
+  // MealInput doesn't need to load initial data
+}
+
+const handleAnalyze = async () => {
+  if (!mealText.value.trim()) return
+  
+  loading.value = true
+  const res = await analyzeMeal({
+    user_id: 1,
+    meal_text: mealText.value
+  })
+  result.value = res.data
+  loading.value = false
+  showResult.value = true
+  
+  eventBus.value.emit('meal:analyzed')
+}
+
+const getRiskClass = (level) => {
+  return level || 'low'
+}
+
+const getRiskLabel = (level) => {
+  const map = { high: '高风险', medium: '中等', low: '低风险' }
+  return map[level] || level
+}
+
+defineExpose({ loadData })
+</script>
+
+<template>
+  <div class="meal-input">
+    <div class="card-header">
+      <span class="icon">🍽️</span>
+      <span class="title">饮食记录与分析</span>
+    </div>
+
+    <div class="input-area">
+      <textarea 
+        v-model="mealText" 
+        placeholder="请输入您吃了什么，例如：早餐吃了两个馒头、一杯豆浆"
+        rows="3"
+      ></textarea>
+      <button class="analyze-btn" @click="handleAnalyze" :disabled="loading">
+        {{ loading ? '分析中...' : '分析' }}
+      </button>
+    </div>
+
+    <div v-if="showResult && result" class="result-area">
+      <div class="result-header">
+        <span :class="['risk-level', getRiskClass(result.risk_level)]">
+          {{ getRiskLabel(result.risk_level) }}
+        </span>
+        <span class="score">评分: {{ result.score }}</span>
+      </div>
+
+      <div v-if="result.detected_foods?.length" class="foods">
+        <div class="foods-title">检测到:</div>
+        <div class="food-tags">
+          <span 
+            v-for="food in result.detected_foods" 
+            :key="food.name"
+            :class="['food-tag', food.category]"
+          >
+            {{ food.name }}
+          </span>
+        </div>
+      </div>
+
+      <div v-if="result.suggestion?.length" class="suggestions">
+        <div class="suggestions-title">建议:</div>
+        <div v-for="(s, idx) in result.suggestion" :key="idx" class="suggestion-item">
+          {{ s }}
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.meal-input {
+  padding: 10px;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 16px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.input-area {
+  margin-bottom: 10px;
+}
+
+.input-area textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 12px;
+  resize: none;
+  margin-bottom: 8px;
+  font-family: inherit;
+}
+
+.analyze-btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.analyze-btn:hover {
+  background: #2563eb;
+}
+
+.analyze-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.result-area {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.risk-level {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.risk-level.high {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.risk-level.medium {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.risk-level.low {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.score {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.foods {
+  margin-bottom: 8px;
+}
+
+.foods-title, .suggestions-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+.food-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.food-tag {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.food-tag.high_risk {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.food-tag.medium_risk {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.food-tag.protective {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.suggestion-item {
+  font-size: 12px;
+  color: #64748b;
+  line-height: 1.5;
+  padding-left: 10px;
+  position: relative;
+}
+
+.suggestion-item::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #3b82f6;
+}
+</style>

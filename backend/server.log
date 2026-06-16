@@ -1,0 +1,115 @@
+INFO:     Started server process [13512]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:40844 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40845 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17641 - "GET /api/medication/plans?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17642 - "GET /api/medication/taken?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:17643 - "GET /api/glucose/recent?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4421 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22169 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:23154 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59047 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:26821 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:12322 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:46481 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13450 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6584 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33448 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14348 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40924 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:30515 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:20984 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14833 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:20763 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:29222 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:23609 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:48104 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22595 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9497 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34276 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:40096 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22191 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56404 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49270 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:24171 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59281 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4699 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:43392 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39843 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35498 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3839 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2729 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57142 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55676 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1307 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38690 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13151 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59512 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59232 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56419 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57905 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:35996 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49252 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:36764 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39395 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33430 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2559 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14739 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32494 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9541 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:27151 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:31553 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58733 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:27205 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:38350 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:9883 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:34318 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44563 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55258 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37259 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:24879 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5137 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:37428 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39610 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:22500 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44725 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:19566 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44076 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8387 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:26122 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39499 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54789 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57088 - "GET /api/glucose/recent?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57087 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44941 - "GET /api/medication/plans?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4924 - "GET /api/advice/daily?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4922 - "GET /api/medication/taken?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4923 - "GET /api/adherence/analyze?user_id=1 HTTP/1.1" 200 OK
+[32m2026-04-10 10:03:15.800[0m | [1mINFO    [0m | [36mnanobot.agent.loop[0m:[36m_process_message[0m:[36m546[0m - [1mProcessing message from cli:user: 1[0m
+[32m2026-04-10 10:03:16.014[0m | [1mINFO    [0m | [36mnanobot.agent.memory[0m:[36mmaybe_consolidate_by_tokens[0m:[36m350[0m - [1mToken consolidation round 0 for diabetes-demo-agent:user:1: 6925/16000 via tiktoken, chunk=12 msgs[0m
+INFO:     127.0.0.1:1352 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3519 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:4736 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+[32m2026-04-10 10:04:04.538[0m | [1mINFO    [0m | [36mnanobot.agent.memory[0m:[36mconsolidate[0m:[36m195[0m - [1mMemory consolidation done for 12 messages[0m
+[32m2026-04-10 10:04:04.618[0m | [34m[1mDEBUG   [0m | [36mnanobot.agent.memory[0m:[36mmaybe_consolidate_by_tokens[0m:[36m338[0m - [34m[1mToken consolidation: no safe boundary for diabetes-demo-agent:user:1 (round 1)[0m
+[32m2026-04-10 10:04:13.862[0m | [34m[1mDEBUG   [0m | [36mnanobot.agent.loop[0m:[36mafter_iteration[0m:[36m101[0m - [34m[1mLLM usage: prompt=4565 completion=253 cached=43[0m
+[32m2026-04-10 10:04:13.864[0m | [1mINFO    [0m | [36mnanobot.agent.loop[0m:[36m_process_message[0m:[36m604[0m - [1mResponse to cli:user: ÎÒÐèÒªÖªµÀÄúÔç²ÍµÄ¾ßÌåÄÚÈÝ²ÅÄÜ°ïÄú·ÖÎö¡£ÇëÄúÃèÊöÒ»ÏÂÔç²Í³ÔÁËÊ²Ã´£¬±ÈÈç£ºÃæ°ü¡¢¼¦µ°¡¢Å£ÄÌ¡¢Ë®¹ûµÈ£¬ÕâÑùÎÒ¾ÍÄÜÎªÄú½øÐÐÏêÏ¸µÄÒûÊ³·ÖÎöÁË¡£[0m
+INFO:     127.0.0.1:24094 - "POST /api/agent/chat HTTP/1.1" 200 OK
+[32m2026-04-10 10:04:13.956[0m | [34m[1mDEBUG   [0m | [36mnanobot.agent.memory[0m:[36mmaybe_consolidate_by_tokens[0m:[36m323[0m - [34m[1mToken consolidation idle diabetes-demo-agent:user:1: 5677/16000 via tiktoken[0m
+INFO:     127.0.0.1:32894 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58072 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:39307 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41891 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK
+[32m2026-04-10 10:05:03.674[0m | [1mINFO    [0m | [36mnanobot.agent.loop[0m:[36m_process_message[0m:[36m546[0m - [1mProcessing message from cli:user: ÄãºÃ[0m
+[32m2026-04-10 10:05:03.756[0m | [34m[1mDEBUG   [0m | [36mnanobot.agent.memory[0m:[36mmaybe_consolidate_by_tokens[0m:[36m323[0m - [34m[1mToken consolidation idle diabetes-demo-agent:user:1: 5677/16000 via tiktoken[0m
+[32m2026-04-10 10:05:07.319[0m | [34m[1mDEBUG   [0m | [36mnanobot.agent.loop[0m:[36mafter_iteration[0m:[36m101[0m - [34m[1mLLM usage: prompt=4612 completion=59 cached=4517[0m
+[32m2026-04-10 10:05:07.320[0m | [1mINFO    [0m | [36mnanobot.agent.loop[0m:[36m_process_message[0m:[36m604[0m - [1mResponse to cli:user: ÄãºÃ£¡ÎÒÊÇÄúµÄÌÇÄò²¡¹ÜÀíÖúÊÖ£¬¿ÉÒÔ°ïÄú¼ÇÂ¼ÑªÌÇ¡¢·ÖÎöÒûÊ³¡¢ÉèÖÃÓÃÒ©ÌáÐÑµÈ¡£ÓÐÊ²Ã´ÎÒ¿ÉÒÔ°ïÄúµÄÂð£¿[0m
+INFO:     127.0.0.1:19528 - "POST /api/agent/chat HTTP/1.1" 200 OK
+[32m2026-04-10 10:05:07.405[0m | [34m[1mDEBUG   [0m | [36mnanobot.agent.memory[0m:[36mmaybe_consolidate_by_tokens[0m:[36m323[0m - [34m[1mToken consolidation idle diabetes-demo-agent:user:1: 5750/16000 via tiktoken[0m
+INFO:     127.0.0.1:44492 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44492 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44492 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:44492 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:32877 - "GET /api/agent/reminders?user_id=1 HTTP/1.1" 200 OK

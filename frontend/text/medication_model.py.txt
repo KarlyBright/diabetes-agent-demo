@@ -1,0 +1,44 @@
+from sqlalchemy import Column, Integer, String, Boolean
+from app.db.database import Base
+
+
+class PendingMedicationPlan(Base):
+    __tablename__ = "pending_medication_plans"
+
+    pending_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    drug_name = Column(String, nullable=True)
+    dosage = Column(String, nullable=True)
+    time_text = Column(String, nullable=True)
+    remind_time = Column(String, nullable=True)
+    frequency = Column(String, default="daily")
+    confirm_status = Column(String, default="pending")
+    is_valid = Column(Boolean, default=False)
+    missing_fields = Column(String, nullable=True)
+
+
+class MedicationPlan(Base):
+    __tablename__ = "medication_plans"
+
+    plan_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    drug_name = Column(String, nullable=False)
+    dosage = Column(String, nullable=False)
+    time_text = Column(String, nullable=False)
+    remind_time = Column(String, nullable=False)
+    frequency = Column(String, default="daily")
+    status = Column(String, default="active")
+
+
+class MedicationTakenRecord(Base):
+    __tablename__ = "medication_taken_records"
+
+    record_id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, nullable=False)
+    plan_id = Column(Integer, nullable=False)
+    drug_name = Column(String, nullable=False)
+    dosage = Column(String, nullable=False)
+    time_text = Column(String, nullable=False)
+    remind_time = Column(String, nullable=False)
+    status = Column(String, nullable=False)
+    created_at = Column(String, nullable=False)

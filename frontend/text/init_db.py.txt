@@ -1,0 +1,7 @@
+from app.db.database import Base, engine
+from app.models.medication_model import PendingMedicationPlan, MedicationPlan, MedicationTakenRecord
+from app.models.glucose_model import GlucoseRecordModel
+
+
+def init_db():
+    Base.metadata.create_all(bind=engine)

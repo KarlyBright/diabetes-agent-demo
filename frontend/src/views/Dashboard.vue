@@ -1,0 +1,161 @@
+<script setup>
+import { ref } from 'vue'
+import ChatPanel from '../components/ChatPanel.vue'
+import GlucoseCard from '../components/GlucoseCard.vue'
+import MedicationCard from '../components/MedicationCard.vue'
+import AdherenceCard from '../components/AdherenceCard.vue'
+import AdviceCard from '../components/AdviceCard.vue'
+import MealInput from '../components/MealInput.vue'
+
+const glucoseRef = ref(null)
+const medicationRef = ref(null)
+const adherenceRef = ref(null)
+const adviceRef = ref(null)
+const mealRef = ref(null)
+
+const refreshGlucose = () => glucoseRef.value?.loadData?.()
+const refreshMedication = () => medicationRef.value?.loadData?.()
+const refreshAdherence = () => adherenceRef.value?.loadData?.()
+const refreshAdvice = () => adviceRef.value?.loadData?.()
+const refreshMeal = () => mealRef.value?.loadData?.()
+
+defineExpose({
+  refreshGlucose,
+  refreshMedication,
+  refreshAdherence,
+  refreshAdvice,
+  refreshMeal
+})
+</script>
+
+<template>
+  <div class="dashboard">
+    <header class="header">
+      <h1>糖尿病管理助手</h1>
+      <p>您的智能健康管理伙伴</p>
+    </header>
+    
+    <div class="main-content">
+      <div class="left-panel">
+        <div class="panel-card chat-section">
+          <ChatPanel />
+        </div>
+        <div class="panel-card meal-section">
+          <MealInput ref="mealRef" />
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <div class="panel-card">
+          <GlucoseCard ref="glucoseRef" />
+        </div>
+        <div class="panel-card">
+          <MedicationCard ref="medicationRef" />
+        </div>
+        <div class="panel-card">
+          <AdherenceCard ref="adherenceRef" />
+        </div>
+        <div class="panel-card">
+          <AdviceCard ref="adviceRef" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.dashboard {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 6px;
+  letter-spacing: 1px;
+}
+
+.header p {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+  min-height: 0;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  min-height: 0;
+}
+
+.panel-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.chat-section {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.chat-section :deep(.chat-panel) {
+  flex: 1;
+}
+
+.meal-section {
+  flex-shrink: 0;
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dashboard {
+    padding: 12px;
+  }
+  
+  .header h1 {
+    font-size: 20px;
+  }
+}
+</style>

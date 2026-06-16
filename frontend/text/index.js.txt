@@ -1,0 +1,69 @@
+const API_BASE = 'http://localhost:8000'
+
+export async function getUserProfile() {
+  const res = await fetch(`${API_BASE}/api/user/profile`)
+  return res.json()
+}
+
+export async function getRecentGlucose(userId = 1) {
+  const res = await fetch(`${API_BASE}/api/glucose/recent?user_id=${userId}`)
+  return res.json()
+}
+
+export async function addGlucoseRecord(data) {
+  const res = await fetch(`${API_BASE}/api/glucose`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  return res.json()
+}
+
+export async function getMedicationPlans(userId = 1) {
+  const res = await fetch(`${API_BASE}/api/medication/plans?user_id=${userId}`)
+  return res.json()
+}
+
+export async function getMedicationTaken(userId = 1) {
+  const res = await fetch(`${API_BASE}/api/medication/taken?user_id=${userId}`)
+  return res.json()
+}
+
+export async function recordMedicationTaken(data) {
+  const res = await fetch(`${API_BASE}/api/medication/take`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  return res.json()
+}
+
+export async function getAdherenceAnalysis(userId = 1) {
+  const res = await fetch(`${API_BASE}/api/adherence/analyze?user_id=${userId}`)
+  return res.json()
+}
+
+export async function getDailyAdvice(userId = 1) {
+  const res = await fetch(`${API_BASE}/api/advice/daily?user_id=${userId}`)
+  return res.json()
+}
+
+export async function analyzeMeal(data) {
+  const res = await fetch(`${API_BASE}/api/meal/analyze`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  return res.json()
+}
+
+export async function sendChatMessage(message) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        role: "assistant",
+        content: `收到你的消息：${message}（这里后续接 OpenClaw）`
+      })
+    }, 500)
+  })
+}

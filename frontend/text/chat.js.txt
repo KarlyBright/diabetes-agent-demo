@@ -1,0 +1,17 @@
+export async function sendChatMessage(message) {
+  const res = await fetch('/api/agent/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ message })
+  })
+
+  const json = await res.json()
+
+  if (!res.ok || json.code !== 0) {
+    throw new Error(json.message || '发送失败')
+  }
+
+  return json.data
+}
