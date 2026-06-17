@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(superpowers:systematic-debugging)",
+      "Skill(everything-claude-code:deployment-patterns)",
+      "Skill(python-patterns)"
+    ]
+  }
+}

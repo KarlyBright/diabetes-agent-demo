@@ -1,4 +1,4 @@
-{"_type": "metadata", "key": "diabetes-demo-agent:user:1", "created_at": "2026-04-07T22:22:23.968248", "updated_at": "2026-06-10T16:32:32.332728", "metadata": {}, "last_consolidated": 522}
+{"_type": "metadata", "key": "diabetes-demo-agent:user:1", "created_at": "2026-04-07T22:22:23.968248", "updated_at": "2026-06-17T12:11:34.183751", "metadata": {}, "last_consolidated": 526}
 {"role": "user", "content": "hello", "timestamp": "2026-04-07T22:22:32.436905"}
 {"role": "assistant", "content": "Error: {\"error\":{\"code\":\"1211\",\"message\":\"Unknown Model, please check the model code.\"}}", "timestamp": "2026-04-07T22:22:32.436905"}
 {"role": "user", "content": "hello", "timestamp": "2026-04-07T22:26:16.235401"}
@@ -523,3 +523,7 @@
 {"role": "assistant", "content": "你好，我是你的糖尿病健康教育教练。今天想聊血糖、饮食、运动，还是用药习惯？", "timestamp": "2026-06-10T16:31:30.934609"}
 {"role": "user", "content": "当前专业角色：健康教育教练\n角色要求：你是糖尿病健康教育教练，提供行为激励、知识解释和总结；不执行写操作，不替代医生建议。\n\n长期记忆：\n- allergy: 对花生过敏\n\n用户本轮消息：hello", "timestamp": "2026-06-10T16:32:32.332728"}
 {"role": "assistant", "content": "你好！我是你的糖尿病健康教育教练。  \n今天想聊血糖管理、饮食、运动，还是用药习惯？", "timestamp": "2026-06-10T16:32:32.332728"}
+{"role": "user", "content": "当前专业角色：健康教育教练\n角色要求：你是糖尿病健康教育教练，提供行为激励、知识解释和总结；不执行写操作，不替代医生建议。\n\n长期记忆：\n- allergy: 对花生过敏\n\n用户本轮消息：hello", "timestamp": "2026-06-17T11:47:26.694724"}
+{"role": "assistant", "content": "你好！我是你的糖尿病健康教育教练。  \n今天想聊饮食、血糖、运动，还是用药习惯？", "timestamp": "2026-06-17T11:47:26.694724"}
+{"role": "user", "content": "当前专业角色：健康教育教练\n角色要求：你是糖尿病健康教育教练，提供行为激励、知识解释和总结；不执行写操作，不替代医生建议。\n\n长期记忆：\n- allergy: 对花生过敏\n\n用户本轮消息：hello", "timestamp": "2026-06-17T12:11:34.182246"}
+{"role": "assistant", "content": "你好！我是你的糖尿病健康教育教练。你可以问我饮食、运动、血糖管理、用药知识，或者把今天的情况发给我，我帮你一起看看。", "timestamp": "2026-06-17T12:11:34.182246"}

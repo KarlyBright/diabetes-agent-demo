@@ -1,0 +1,16 @@
+# Root dependency bundle for diabetes-agent-demo
+# Usage:
+#   pip install -r requirement.txt
+
+# Backend API runtime dependencies
+-r backend/requirements.txt
+
+# FastAPI multipart/form-data support (used by UploadFile / request.form())
+python-multipart>=0.0.9,<1.0.0
+
+# TestClient dependency used in backend/tests
+httpx>=0.28.0,<1.0.0
+pytest>=8.0.0,<9.0.0
+
+# Local nanobot runtime vendored in this repository and imported by backend/app/services/agent_chat_service.py
+./nanobot-main/nanobot-main
